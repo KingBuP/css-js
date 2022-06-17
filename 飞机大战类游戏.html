@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            /* backdrop-filter: blur(10px); */
+            /* background: url(images/屏幕截图\(3\).png) 0 0/100% 100%; */
+            animation: bg 5s infinite linear;
+        }
+
+        @keyframes bg {
+            100% {
+                background-position: 0 100vh;
+            }
+        }
+
+        div {
+            position: relative;
+            width: 150px;
+            display: flex;
+            justify-content: center;
+            height: 150px;
+            background-color: bisque;
+            left: 150px;
+            top: 300px;
+            border-radius: 12px;
+            /* filter: drop-shadow(0 0 15px blue); */
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        span {
+            display: block;
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            filter: blur(8px);
+            /* top: 200px; */
+            background-color: blue;
+            animation: hh 5s linear infinite;
+        }
+
+        nav {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            top: -100px;
+            /* filter: blur(8px); */
+            background-color: red;
+            border-radius: 12px;
+            animation: hhh 120s linear infinite;
+        }
+
+        header {
+            position: fixed;
+            right: 0px;
+            top: 0px;
+            height: 80px;
+            width: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            background-color: cadetblue;
+            border-radius: 8px;
+            border: 1px solid black;
+        }
+
+        @keyframes hh {
+            100% {
+                top: -999px;
+            }
+        }
+
+        @keyframes hhh {
+            100% {
+                top: 9999px;
+            }
+        }
+
+        @keyframes hh2 {
+            100% {
+                transform: rotate(360deg);
+                top: -999px;
+            }
+        }
+
+        @keyframes xiao {
+            100% {
+                border-radius: 50%;
+                transform: scale(5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes xiao2 {
+            100% {
+                border-radius: 50%;
+                transform: scale(99);
+                opacity: 0;
+            }
+        }
+
+        section {
+            display: none;
+            width: 250px;
+            height: 50px;
+            background-color: skyblue;
+            position: absolute;
+            bottom: 0px;
+            left: 50%;
+            border-radius: 8px;
+            box-shadow: 0 0 20px blue;
+            transform: translateX(-50%);
+        }
+
+        .na {
+            background-color: blue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: aliceblue;
+        }
+
+        .spanT {
+            animation: hh 1s linear infinite;
+        }
+
+        .na2 {
+            background-color: brown;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: aliceblue;
+        }
+
+        .na3 {
+            width: 30px;
+            height: 30px;
+            box-shadow: 0 0 15px blue;
+            background-color: chartreuse;
+        }
+
+        .dong {
+            transform-origin: -5px 0;
+            /* transform: rotate(360deg); */
+            animation: hh2 2.1s linear infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <section></section>
+        <!-- draggable 是否可拖动  -->
+        <!-- disabled 是否禁用按钮 -->
+        <!-- <button disabled="false">242454</button> -->
+        <img src="./1.gif" alt="" draggable="false">
+        <!-- <a href="https://www.baidu.com">baidu</a> -->
+    </div>
+    <header>
+
+    </header>
+    <script>
+        // 困难模式标识
+        let kunnan = false;
+        //键盘控制的速度
+        let nu = 30;
+        // 小怪刷新频率
+        let shi = 1000;
+        //子弹速度
+        let zis = 500;
+        // 目标分数
+        let ppt = 120;
+        let star = false;
+        // 节流阀
+        let star2 = true;
+        let x = 0;
+        let y = 0;
+        // 积分器
+        let num = 0;
+        alert("拖动方块击毁目标并获得" + ppt + "分");
+        let hea = document.querySelector("header");
+        hea.innerHTML = `目前得分：0`;
+        //阻止a标签
+        // let a = document.querySelector("a");
+        // a.addEventListener("click",function(e){
+        //!     e.preventDefault();
+        // });
+        let div = document.querySelector('div');
+        div.addEventListener("click", function (e) {
+            e = e || window.event;
+        });
+        //move移动     up放下   添加拖动
+        div.addEventListener("mousedown", function (e) {
+            this.style.left = `${(e.pageX - e.offsetX)}px`;
+            this.style.top = `${(e.pageY - e.offsetY)}px`;
+            x = e.offsetX;
+            y = e.offsetY;
+            document.addEventListener('mousemove', ll);
+        });
+        function ll(e) {
+            div.style.left = `${e.pageX - x}px`;
+            div.style.top = `${e.pageY - y}px`;
+        }
+        document.addEventListener("mouseup", function (e) {
+            document.removeEventListener("mousemove", ll);
+        });
+        // 添加键盘事件
+        window.addEventListener("keypress", function (e) {
+            if (e.keyCode == 119) {
+                div.style.top = `${div.offsetTop - nu}px`;
+            } else if (e.keyCode == 115) {
+                div.style.top = `${div.offsetTop + nu}px`;
+            } else if (e.keyCode == 97) {
+                div.style.left = `${div.offsetLeft - nu}px`;
+            } else if (e.keyCode == 100) {
+                div.style.left = `${div.offsetLeft + nu}px`;
+            }
+        });
+        window.addEventListener("keydown", function (e) {
+            div.style.translate = `0.2s`;
+            if (e.keyCode == 119) {
+                div.style.top = `${div.offsetTop - nu}px`;
+            } else if (e.keyCode == 115) {
+                div.style.top = `${div.offsetTop + nu}px`;
+            } else if (e.keyCode == 97) {
+                div.style.left = `${div.offsetLeft - nu}px`;
+            } else if (e.keyCode == 100) {
+                div.style.left = `${div.offsetLeft + nu}px`;
+            }
+        });
+        //screenX  screenY  鼠标距离电脑屏幕的距离
+        //pageX pageY 鼠标距离浏览器可视区的距离
+        // 定时创建子弹
+        let span = document.createElement("span");
+        span.style.left = div.offsetLeft + div.offsetWidth / 2 - 25 + "px";
+        span.style.top = div.offsetTop - 50 + "px";
+        div.appendChild(span);
+        let zi1 = setInterval(() => {
+            let span = document.createElement("span");
+            span.style.left = div.offsetLeft + div.offsetWidth / 2 - 25 + "px";
+            span.style.top = div.offsetTop - 50 + "px";
+            // span.setAttribute("peng", "1");
+            div.appendChild(span);
+        }, zis);
+        //定时检测超出浏览器范围的子弹和敌人并删除
+        setInterval(() => {
+            let spans = document.querySelectorAll("span");
+            let navs = document.querySelectorAll("nav");
+            for (let i = 0; i < spans.length; i++) {
+                if (spans[i].offsetTop <= 0) {
+                    div.removeChild(spans[i]);
+                }
+            }
+            for (let i = 0; i < navs.length; i++) {
+                if (navs[i].offsetTop >= document.body.offsetHeight) {
+                    div.removeChild(navs[i]);
+                }
+            }
+        }, 1000);
+        //随机生成敌人
+        let nav = document.createElement("nav");
+        nav.style.left = Math.floor(Math.random() * document.body.offsetWidth) + "px";
+        nav.style.top = "-100px";
+        // 设置“peng”判定让敌人只能碰撞指定次数
+        nav.setAttribute("peng", 1);
+        div.appendChild(nav);
+        let diren1 = setInterval(() => {
+            let nav = document.createElement("nav");
+            nav.style.left = Math.floor(Math.random() * document.body.offsetWidth) + "px";
+            nav.setAttribute("peng", 1);
+            nav.style.top = "0px";
+            div.appendChild(nav);
+        }, shi);
+
+        //几秒后增加一倍的刷新怪
+        // setTimeout(() => {
+        //     setInterval(() => {
+        //         let nav = document.createElement("nav");
+        //         nav.style.left = Math.floor(Math.random() * document.body.offsetWidth) + "px";
+        //         nav.style.top = "0px";
+        //         div.appendChild(nav);
+        //     }, shi);
+        //     setInterval(() => {
+        //         let span = document.createElement("span");
+        //         span.style.left = div.offsetLeft + div.offsetWidth / 2 - 25 + "px";
+        //         span.style.top = div.offsetTop - 50 + "px";
+        //         div.appendChild(span);
+        //     }, 500);
+        // }, 45000);
+        // 特殊效果敌人
+        let te = 5;
+        setInterval(() => {
+            let nav = document.createElement("nav");
+            nav.style.left = Math.floor(Math.random() * document.body.offsetWidth) + "px";
+            nav.style.top = "0px";
+            nav.setAttribute("class", "na");
+            nav.setAttribute("peng", te);
+            nav.setAttribute("num", te);
+            nav.innerHTML = te;
+            div.appendChild(nav);
+        }, 18000);
+        //清空敌人
+        setInterval(() => {
+            let nav = document.createElement("nav");
+            nav.style.left = Math.floor(Math.random() * document.body.offsetWidth) + "px";
+            nav.style.top = "0px";
+            nav.setAttribute("class", "na3");
+            nav.setAttribute("peng", 1);
+            div.appendChild(nav);
+        }, 22000);
+        // 精英怪
+        let te2 = 8;
+        let diren2 = setInterval(() => {
+            let nav = document.createElement("nav");
+            nav.style.left = Math.floor(Math.random() * document.body.offsetWidth) + "px";
+            nav.style.top = "0px";
+            nav.setAttribute("class", "na2");
+            nav.setAttribute("num", te2);
+            nav.setAttribute("peng", te2);
+            nav.innerHTML = te2;
+            div.appendChild(nav);
+        }, shi * 5);
+        // 困难
+        function kn() {
+            kunnan = true;
+            shi = 400;
+            zis = 300;
+            clearInterval(zi1);
+            clearInterval(diren1);
+            clearInterval(diren2);
+            //子弹
+            let ziDan = setInterval(() => {
+                let span = document.createElement("span");
+                span.style.left = div.offsetLeft + div.offsetWidth / 2 - 25 + "px";
+                span.style.top = div.offsetTop - 50 + "px";
+                span.style.backgroundColor = `black`;
+                div.appendChild(span);
+            }, zis);
+            //小怪
+            let di1 = setInterval(() => {
+                let nav = document.createElement("nav");
+                nav.style.left = Math.floor(Math.random() * document.body.offsetWidth) + "px";
+                nav.setAttribute("peng", 1);
+                nav.style.top = "0px";
+                nav.style.backgroundColor = `pink`;
+                div.appendChild(nav);
+            }, shi);
+            // 精英怪
+            let te2 = 5;
+            let di2 = setInterval(() => {
+                let nav = document.createElement("nav");
+                nav.style.left = Math.floor(Math.random() * document.body.offsetWidth) + "px";
+                nav.style.top = "0px";
+                nav.style.border = `2px solid yellow`;
+                nav.setAttribute("class", "na2");
+                nav.setAttribute("peng", te2);
+                nav.setAttribute("num", "5");
+                nav.innerHTML = te2;
+                div.appendChild(nav);
+            }, shi * 5);
+        }
+        //声音
+        // let auDio = new Audio("./audio/NewStuff.mp3");
+        // auDio.play();
+        // 检测子弹与敌人碰撞
+        setInterval(() => {
+            let spanS = document.querySelectorAll("span");
+            let navS = document.querySelectorAll("nav");
+            for (let i = 0; i < spanS.length; i++) {
+                for (let p = 0; p < navS.length; p++) {
+                    // 碰撞检测
+                    if (spanS[i].offsetLeft < navS[p].offsetLeft + navS[p].offsetWidth &&
+                        spanS[i].offsetLeft + spanS[i].offsetWidth > navS[p].offsetLeft &&
+                        spanS[i].offsetTop < navS[p].offsetTop + navS[p].offsetHeight &&
+                        spanS[i].offsetTop + spanS[i].offsetHeight > navS[p].offsetTop &&
+                        navS[p].getAttribute("peng") > 0) {
+                        let toph = navS[p].offsetTop;
+                        let leftw = navS[p].offsetLeft;
+                        if (navS[p].getAttribute("class") == 'na') {
+                            let peng1 = navS[p].getAttribute("peng");
+                            let numt1 = navS[p].getAttribute('num');
+                            numt1--;
+                            peng1--;
+                            navS[p].setAttribute("peng", `${peng1}`);
+                            navS[p].setAttribute("num", `${numt1}`);
+                            div.removeChild(spanS[i]);
+                            navS[p].innerHTML = numt1;
+                            if (navS[p].getAttribute("num") == 0) {
+                                navS[p].style.left = `${leftw}px`;
+                                navS[p].style.top = `${toph}px`;
+                                navS[p].style.animation = `xiao 0.1s`;
+                                navS[p].addEventListener("animationend", function () {
+                                    div.removeChild(this);
+                                });
+                                div.children[0].style.display = `block`;
+                                div.style.boxShadow = `0 0 20px blue`;
+                                if (kunnan) {
+                                    console.log("kaishi");
+                                    let shu = setInterval(() => {
+                                        let span = document.createElement("span");
+                                        span.style.left = div.offsetLeft - 100 + "px";
+                                        span.style.top = div.offsetTop + div.offsetHeight / 2 - 25 + "px";
+                                        span.style.background = `skyblue`;
+                                        span.classList.add("dong");
+                                        div.appendChild(span);
+                                    }, 360);
+                                    let shu2 = setInterval(() => {
+                                        let span = document.createElement("span");
+                                        span.style.left = div.offsetLeft + div.offsetWidth + 50 + "px";
+                                        span.style.top = div.offsetTop + div.offsetHeight / 2 - 25 + "px";
+                                        span.style.background = `skyblue`;
+                                        span.classList.add("dong");
+                                        // span.style.animation = 'hh2 5s linear infinite';
+                                        div.appendChild(span);
+                                    }, 360);
+                                    setTimeout(function () {
+                                        clearInterval(shu);
+                                        clearInterval(shu2);
+                                        div.children[0].style.display = `none`;
+                                        div.style.boxShadow = ``;
+                                    }, 8000);
+                                } else {
+                                    let shu = setInterval(() => {
+                                        let span = document.createElement("span");
+                                        span.style.left = div.offsetLeft - 100 + "px";
+                                        span.style.top = div.offsetTop + div.offsetHeight / 2 - 25 + "px";
+                                        span.style.background = `skyblue`;
+                                        div.appendChild(span);
+                                    }, 500);
+                                    let shu2 = setInterval(() => {
+                                        let span = document.createElement("span");
+                                        span.style.left = div.offsetLeft + div.offsetWidth + 50 + "px";
+                                        span.style.top = div.offsetTop + div.offsetHeight / 2 - 25 + "px";
+                                        span.style.background = `skyblue`;
+                                        div.appendChild(span);
+                                    }, 500);
+                                    setTimeout(function () {
+                                        clearInterval(shu);
+                                        clearInterval(shu2);
+                                        div.children[0].style.display = `none`;
+                                        div.style.boxShadow = ``;
+                                    }, 8000);
+                                }
+                            }
+                        } else if (navS[p].getAttribute("class") == 'na2') {
+                            let numt = navS[p].getAttribute('num');
+                            let peng2 = navS[p].getAttribute("peng");
+                            peng2--;
+                            numt--;
+                            navS[p].setAttribute("peng", `${peng2}`);
+                            navS[p].setAttribute("num", `${numt}`);
+                            div.removeChild(spanS[i]);
+                            navS[p].innerHTML = numt;
+                            if (navS[p].getAttribute("num") == 0) {
+                                // div.removeChild(navS[p]);
+                                navS[p].style.left = `${leftw}px`;
+                                navS[p].style.top = `${toph}px`;
+                                navS[p].style.animation = `xiao 0.1s`;
+                                navS[p].addEventListener("animationend", function () {
+                                    div.removeChild(this);
+                                });
+                                num += 8;
+                                hea.innerHTML = `目前得分：${num}`;
+                            }
+                        } else if (navS[p].getAttribute("class") == 'na3') {
+                            div.removeChild(spanS[i]);
+                            navS[p].style.left = `${leftw}px`;
+                            navS[p].style.top = `${toph}px`;
+                            navS[p].style.animation = `xiao2 0.5s`;
+                            navS[p].addEventListener("animationend", function () {
+                                let gg = div.querySelectorAll("nav");
+                                gg.forEach((item) => {
+                                    if (item.getAttribute("class") == "na2") {
+                                        num += 8;
+                                    } else {
+                                        num++;
+                                    }
+                                    div.removeChild(item);
+                                });
+                                hea.innerHTML = `目前得分：${num}`;
+                            });
+                        } else {
+                            let peng3 = navS[p].getAttribute("peng");
+                            peng3--;
+                            navS[p].setAttribute("peng", `${peng3}`);
+                            num++;
+                            div.removeChild(spanS[i]);
+                            hea.innerHTML = `目前得分：${num}`;
+                            navS[p].style.left = `${leftw}px`;
+                            navS[p].style.top = `${toph}px`;
+                            navS[p].style.animation = `xiao 0.1s`;
+                            navS[p].addEventListener("animationend", function () {
+                                div.removeChild(this);
+                            });
+                        }
+                    }
+                    if (num >= ppt && star2 == true) {
+                        star2 = false;
+                        alert("恭喜您，您胜利了！");
+                        star = confirm("是否开始下一局，点取消开启困难（无尽）模式。");
+                        if (star) {
+                            star = false;
+                            window.location.reload();
+                        } else if (!star) {
+                            kn();
+                            // console.log("开启");
+                        }
+                        // document.body.removeChild(div);
+                    }
+                }
+            }
+        }, 1);
+        // 检测发射体与敌人碰撞
+        setInterval(() => {
+            let navS = document.querySelectorAll("nav");
+            for (let p = 0; p < navS.length; p++) {
+                // 碰撞检测
+                if (div.offsetLeft < navS[p].offsetLeft + navS[p].offsetWidth &&
+                    div.offsetLeft + div.offsetWidth > navS[p].offsetLeft &&
+                    div.offsetTop < navS[p].offsetTop + navS[p].offsetHeight &&
+                    div.offsetTop + div.offsetHeight > navS[p].offsetTop) {
+                    div.removeChild(navS[p]);
+                    document.body.removeChild(div);
+                    alert("游戏结束--得分：" + num);
+                    star = confirm("是否开始下一句");
+                    if (star) {
+                        star = false;
+                        window.location.reload();
+                    }
+                }
+            }
+        }, 1);
+    </script>
+</body>
+
+</html>

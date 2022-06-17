@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        main {
+            position: relative;
+            width: 1200px;
+            height: 719.1px;
+            box-shadow: 0 0 15px blue;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        main div {
+            background-color: bisque;
+            width: 25%;
+            height: 25%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        main div span {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: 1200px;
+            background-image: url(./images/wallhaven-k76xd1.jpg);
+            background-repeat: no-repeat;
+            background-position: 0 0;
+        }
+
+        /* 300 179.76 */
+        main div .span1 {
+            background-position: -300px 0px;
+        }
+
+        main div .span2 {
+            /* background-position: 50% 0%; */
+            background-position: -600px 0px;
+        }
+
+        main div .span3 {
+            /* background-position: 75% 0%; */
+            background-position: -900px 0px;
+        }
+
+        main div .span4 {
+            background-position: -0px -179.76px;
+        }
+
+        main div .span5 {
+            background-position: -300px -179.76px;
+
+        }
+
+        main div .span6 {
+            background-position: -600px -179.76px;
+
+        }
+
+        main div .span7 {
+            background-position: -900px -179.76px;
+
+        }
+
+        main div .span8 {
+            background-position: -0px -359.52px;
+        }
+
+        main div .span9 {
+            background-position: -300px -359.52px;
+        }
+
+        main div .span10 {
+            background-position: -600px -359.52px;
+        }
+
+        main div .span11 {
+            background-position: -900px -359.52px;
+        }
+
+        main div .span12 {
+            background-position: 0px -539.28px;
+        }
+
+        main div .span13 {
+            background-position: -300px -539.28px;
+        }
+
+        main div .span14 {
+            background-position: -600px -539.28px;
+
+        }
+
+        main nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: -100px;
+            width: 80px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: blue;
+            color: white;
+            cursor: pointer;
+            margin-left: 12px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px green;
+        }
+
+        article {
+            display: flex;
+            position: fixed;
+            top: 24px;
+            right: 50px;
+            width: 300px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        body .tg-2 {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.1);
+            display: flex;
+            width: 1400px;
+            box-shadow: 0 0 8px yellowgreen, 0 0 15px yellow;
+            animation: name 4s;
+            animation-fill-mode: forwards;
+        }
+
+        .tg {
+            display: none;
+        }
+
+        .tg .tg-btn {
+            text-decoration: none;
+            display: none;
+            position: absolute;
+            left: 50%;
+            bottom: -40px;
+            transform: translateX(-50%);
+            cursor: pointer;
+            background-color: aqua;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        @keyframes name {
+            0% {
+                transform: translate(-50%, -50%) scale(0.1);
+            }
+
+            75% {
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        main ul {
+            position: absolute;
+            top: -60px;
+            left: 8px;
+            list-style: none;
+            display: flex;
+        }
+
+        main ul li {
+            width: 80px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 18px;
+            color: black;
+            margin-left: 12px;
+            background-color: burlywood;
+            transition: 0.3s;
+        }
+
+        main ul .lit {
+            background-color: black;
+            color: aqua;
+        }
+
+        .tg nav {
+            display: none;
+            position: absolute;
+            left: -60px;
+            top: -60px;
+            background-color: chartreuse;
+            border-radius: 50%;
+            color: black;
+            width: 60px;
+            height: 60px;
+            /* display: flex; */
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="liuyan">
+        <input type="text" placeholder="留言-建议"><button>提交</button>
+    </div> -->
+    <main>
+        <article><img src="./images/img/wallhaven-k76xd1-min.jpg" width="100%" draggable="false"></article>
+        <!-- 自带 draggable=”true“  的标签只有a和img -->
+        <!-- <img src="" draggable="false"> -->
+        <nav unselectable="on" onselectstart="return false;" style="-moz-user-select:none;">打乱</nav>
+    </main>
+    <div class="tg">
+        <img src="./images/img/wallhaven-k76xd1-min.jpg" width="100%" draggable="false">
+        <a class="tg-btn" href="./images/wallhaven-k76xd1.jpg" download="tupian+1.jpg">
+            下载图片至电脑
+        </a>
+        <nav>返回</nav>
+    </div>
+    <script>
+        alert("接下来,打乱很有用！");
+        let muBiaoYuanSu = '';
+        let inx = 0;
+        let it = '';
+        let main = document.querySelector("main");
+        // 留言
+        // let arrSuJu = [];
+        // document.querySelector()
+        // 添加/替换图片注意图片和主区域是否合适
+        // 可以只添加arrUrlImg这一个路径   arrUrlImg2是下载路径--建议添加原图的图片路径
+        // arrUrlImg为压缩后图片的路径  如果没有可直接加arrUrlImg这一个路径  后面想添加原图路径可用 "" 空字符串占位路径 
+        // 以下图片均来自网络
+        // 显示图片路径
+        let arrUrlImg = ["./images/img/wallhaven-k76xd1-min.jpg", "./images/img/wallhaven-72qq29-min.png", "./images/img/wallhaven-m9md18-min.jpg", "./images/wallhaven-6ozkzl.jpg", "./images/wallhaven-578pl1.jpg", "./images/wallhaven-pkw6y3.jpg"];
+        // 下载图片路径
+        let arrUrlImg2 = ["./images/wallhaven-k76xd1.jpg", "./images/wallhaven-72qq29.png", "./images/wallhaven-m9md18.jpg", "", "", ""];
+        let ul = document.createElement("ul");
+        for (let s = 0; s < arrUrlImg.length; s++) {
+            let li = document.createElement("li");
+            li.innerHTML = `第${s + 1}张`;
+            if (s == 0) { li.setAttribute("class", "lit") };
+            ul.appendChild(li);
+        }
+        main.appendChild(ul);
+        let ulLi = document.querySelectorAll("main ul li");
+        ulLi.forEach((item, index, arr) => {
+            arrUrlImg2[index] = arrUrlImg2[index] ? arrUrlImg2[index] : arrUrlImg[index];
+            item.addEventListener("click", () => {
+                if (item.classList.contains("lit") == false) {
+                    fuYuan(divS, spanS);
+                }
+                for (let b = 0; b < arr.length; b++) {
+                    arr[b].classList.remove("lit");
+                }
+                item.classList.add("lit")
+                document.querySelector(".tg img").src = arrUrlImg[index];
+                document.querySelector(".tg .tg-btn").href = arrUrlImg2[index];
+                document.querySelector("article img").src = arrUrlImg[index];
+                document.querySelectorAll("main div span").forEach((item) => {
+                    item.style.backgroundImage = `url(${arrUrlImg[index]})`;
+                });
+            });
+        });
+        for (let i = 0; i < 16; i++) {
+            let div = document.createElement("div");
+            div.setAttribute("index", i)
+            if (i < 15) {
+                let span = document.createElement("span");
+                span.setAttribute("index", i);
+                span.setAttribute("draggable", true)
+                span.setAttribute("class", "span" + i);
+                div.appendChild(span)
+            }
+            main.appendChild(div)
+        }
+        let spanS = document.querySelectorAll("span");
+        let divS = document.querySelectorAll("main div");
+
+        spanS.forEach((item, index) => {
+            item.ondragstart = function () {
+                muBiaoYuanSu = item;
+                inx = item.parentNode.getAttribute("index");
+                it = item.parentNode;
+            }
+        });
+        divS.forEach((item, index) => {
+            item.ondragover = function () {
+                window.event.preventDefault();
+                item.style.boxShadow = '0 0 8px red';
+                item.style.zIndex = "99";
+            }
+            item.ondragleave = function () {
+                item.style.boxShadow = '';
+                item.style.zIndex = "0";
+            }
+            item.ondrop = function () {
+                item.style.boxShadow = '';
+                item.style.zIndex = "0";
+                if (item.childNodes.length == 0) {
+                    item.appendChild(muBiaoYuanSu);
+                    if (fuWei(divS, spanS)) {
+                        setTimeout(() => {
+                            alert("挑战成功！！");
+                            document.querySelector("main").style.display = "none";
+                            document.querySelector(".tg").classList.add("tg-2");
+                            setTimeout(() => {
+                                document.querySelector(".tg .tg-btn").style.display = "flex";
+                                document.querySelector(".tg nav").style.display = "flex";
+                            }, 3500);
+                        }, 100);
+                    }
+                } else if (item.childNodes.length == 1) {
+                    item.appendChild(muBiaoYuanSu);
+                    divS[inx].appendChild(item.firstElementChild);
+                    if (it != item) {
+                        if (fuWei(divS, spanS)) {
+                            setTimeout(() => {
+                                alert("挑战成功！！");
+                                document.querySelector("main").style.display = "none";
+                                document.querySelector(".tg").classList.add("tg-2");
+                                setTimeout(() => {
+                                    document.querySelector(".tg .tg-btn").style.display = "flex";
+                                    document.querySelector(".tg nav").style.display = "flex";
+                                }, 3500);
+                            }, 100);
+                        }
+                    }
+
+                }
+            }
+        });
+        document.querySelector("nav").addEventListener("click", function () {
+            daLu(15, divS, spanS);
+        })
+        document.querySelector("body .tg img").addEventListener("click", function () {
+            if (this.msRequestFullscreen) {
+                this.msRequestFullscreen();
+            } else if (this.oRequestFullscreen) {
+                this.oRequestFullscreen();
+            } else if (this.mozRequestFullscreen) {
+                this.mozRequestFullscreen();
+            } else if (this.webkitRequestFullscreen) {
+                this.webkitRequestFullscreen();
+            }
+        });
+        document.querySelector(".tg nav").addEventListener("click", function () {
+            document.querySelector(".tg").classList.remove("tg-2");
+            document.querySelector("main").style.display = "flex";
+            document.querySelector(".tg .tg-btn").style.display = "none";
+            document.querySelector(".tg nav").style.display = "none";
+        });
+        // document.querySelector(".tg .tg-btn").addEventListener("click", (item) = {})
+
+        //判断复位是否成功  arr1父容器 arr2子容器
+        function fuWei(arr1, arr2) {
+            for (let i = 0; i < arr1.length - 1; i++) {
+                if (arr1[i].firstElementChild == null) {
+                    return false;
+                }
+                if (arr1[i].getAttribute("index") != arr1[i].firstElementChild.getAttribute("index")) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        //打乱  变化不大的打乱
+        function daLu(num, arrDiv1, arrSpan2) {
+            let arrNum = [];
+            for (let index = 0; index < num; index++) {
+                arrNum[index] = index;
+            }
+            arrNum.sort((a, b) => {
+                return (Math.random() * 1 > 0.5) ? 1 : -1;
+            });
+            for (let a = 0; a < arrNum.length; a++) {
+                arrDiv1[a].appendChild(arrSpan2[arrNum[a]]);
+            }
+        }
+        //复原
+        function fuYuan(arrDiv1, arrSpan2) {
+            for (let index = 0; index < arrDiv1.length - 1; index++) {
+                arrDiv1[index].appendChild(arrSpan2[index]);
+            }
+        }
+    </script>
+</body>
+
+</html>
